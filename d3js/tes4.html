@@ -1,0 +1,67 @@
+<body>
+<style type="text/css">
+  body{background-color: rgb(102,107,111);}
+</style>
+<script src="d3.v3.min.js"></script>
+<script type="text/javascript">
+  var width = 900, height = 900;
+var twoPi = 2 * Math.PI; // Full circle
+var formatPercent = d3.format(".0%");
+
+var data = [
+  { "count" : 50 },
+  { "count" : 80 },
+  { "count" : 70 },
+  { "count" : 50 }
+];
+
+var percent = d3.max(data, function(d) {
+  return +d.count / 10;
+});
+
+var max = d3.max(data, function(d) { 
+  return +d.count;
+});
+var baseRad = .25, cgap = 22, maxVal = max + percent;
+
+var cx1 = width / 2.5;
+var cy1 = height / 2.5;
+
+var cl = "c0";
+
+var ind = 0;
+
+var rad;
+
+rad = baseRad;
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height)
+  .append("g")
+    .attr("transform", "translate(" + width / 10 + "," + height / 10 + ")");
+
+    svg.selectAll("path")
+        .data(data).enter()
+      .append("path")
+        .each(drawArc);
+
+function drawArc(d, i) {
+  var ratio = d.count / maxVal;
+  var arc = d3.svg.arc()
+      .startAngle(0)
+      .endAngle(twoPi * ratio)
+      .cornerRadius(10)
+      .innerRadius(0 + cgap * rad)
+      .outerRadius(20 + cgap * rad);
+    
+  d3.select(this)
+      .attr("transform", "translate(" + cx1 + "," + cy1+ ")")
+      .attr("d", arc)
+      .attr("fill", "#8FAAE5")  
+      .attr("stroke", "black");  
+      rad++;
+}
+</script>
+  
+</body>

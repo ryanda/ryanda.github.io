@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<head>
+	<style>
+
+  .back{
+    /*fill-opacity: .6;*/
+    /*fill: #e377c2;*/
+    /*z-index: 100;*/
+  }
+  .back:hover  {
+    /*fill: yellow;*/
+  }
+  .front{
+    /*fill-opacity: .6;*/
+    /*fill: #e377c2;*/
+    /*transition: all .2s ease-in-out;*/
+    /*z-index: 101;*/
+  }
+  .front:hover{
+    /*fill: yellow;*/
+/*    -moz-box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    -webkit-border-radius: 15px;
+    border: 5px solid #fff;
+    transform: translate(0,-10px);
+*/    /*transform: scale(1,1.2);*/
+  }
+  .front:hover ~ .back {
+    /*fill:black;*/
+  }
+	.axis {
+	  font: 10px sans-serif;
+	}
+
+	.axis path,
+	.axis line {
+	  fill: none;
+	  stroke: #000;
+	  shape-rendering: crispEdges;
+	}
+
+	</style>
+</head>
+
+<body>
+	
+<script src="d3.v3.min.js"></script>
+<!-- <script src="http://d3js.org/d3.v3.min.js"></script> -->
+
+<script>
+
+var margin = {top: 20, right: 20, bottom: 70, left: 40},
+    width = 1000 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+// Parse the date / time
+var	parseDate = d3.time.format("%Y-%m").parse;
+
+var x = d3.scale.ordinal().rangeRoundBands([0, width]);
+// var x = d3.scale.ordinal().rangeRoundBands([0, width], .05);
+
+var y = d3.scale.linear().range([height, 0]);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom")
+    .tickFormat(d3.time.format("%Y-%m"));
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left")
+    .ticks(10);
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", 
+          "translate(" + margin.left + "," + margin.top + ")");
+
+d3.csv("data.csv", function(error, data) {
+
+    data.forEach(function(d) {
+        d.date = parseDate(d.date);
+        d.value = +d.value;
+    });
+  x.domain(data.map(function(d) { return d.date; }));
+  y.domain([0, d3.max(data, function(d) { return d.value; })]);
+
+
+// filter
+var defs = svg.append("defs");
+var filter = defs.append("filter")
+    .attr("id", "drop-shadow")
+    .attr("height", "130%");
+filter.append("feOffset")
+  .attr("in", "SourceGraphic")
+  .attr("dx", 5)
+  .attr("dy", 5)
+  .attr("result", "offOut");
+filter.append("feColorMatrix")
+  .attr("in", "offOut")
+  .attr("type", "matrix")
+  .attr("values", "0.2 0 0 0 0 0 0.2 0 0 0 0 0 0.2 0 0 0 0 0 1 0")
+  .attr("result", "matrixOut");
+filter.append("feGaussianBlur")
+  .attr("in", "matrixOut")
+  .attr("stdDeviation", 10)
+  .attr("result", "blurOut");
+filter.append("feBlend")
+  .attr("in", "SourceGraphic")
+  .attr("in2", "blurOut")
+  .attr("mode", "normal");
+// filter.append("feGaussianBlur")
+//     .attr("in", "SourceAlpha")
+//     .attr("stdDeviation", 5)
+//     .attr("result", "blur");
+// filter.append("feOffset")
+//     .attr("in", "blur")
+//     .attr("dx", 5)
+//     .attr("dy", 5)
+//     .attr("result", "offsetBlur");
+var feMerge = filter.append("feMerge");
+feMerge.append("feMergeNode")
+    .attr("in", "offsetBlur")
+feMerge.append("feMergeNode")
+    .attr("in", "SourceGraphic");
+  // svg.append("g")
+  //     .attr("class", "x axis")
+  //     .attr("transform", "translate(0," + height + ")")
+  //     .call(xAxis)
+  //   .selectAll("text")
+  //     .style("text-anchor", "end")
+  //     .attr("dx", "-.8em")
+  //     .attr("dy", "-.55em")
+  //     .attr("transform", "rotate(-90)" );
+
+  // svg.append("g")
+  //     .attr("class", "y axis")
+  //     .call(yAxis)
+  //   .append("text")
+  //     .attr("transform", "rotate(-90)")
+  //     .attr("y", 6)
+  //     .attr("dy", ".71em")
+  //     .style("text-anchor", "end")
+  //     .text("Value ($)");
+
+  // back
+  var backer = svg.selectAll("bar")
+    .data(data)
+    .enter().append("rect")
+    .attr("y",-20)
+    .attr("x", function(d) { return x(d.date); })
+    .attr("width", x.rangeBand())
+    .attr("height", height+80)
+    .attr("fill", 'rgb(102,107,111)')
+    .attr("stroke", 'rgb(73,81,60)')
+    .attr("class", "back")
+    .attr("id", function(d, i) { return "backgr"+i})
+    .on('mouseover', function(d, i) {
+      d3.select("#front"+i)
+      .transition()
+      .ease('ease-in-out')
+      .duration('200')
+      // .attr('transform', 'translate(0,-50)')
+      .attr('transform', 'scale(1,1.02)')
+      .style("filter", "url(#drop-shadow)")
+      .attr('fill', 'rgba(40,216,178,1)');
+      d3.select("#backgr"+i)
+      .attr("stroke", "black")
+      .attr('fill', 'rgb(246,246,246)');
+      d3.select("#text"+i)
+      .attr("display", "block")
+      .attr("fill", 'rgb(84,84,84');
+      // .attr('display', 'none');
+    })
+    .on('mouseout', function(d,i) {
+      d3.select("#front"+i)
+      .transition()
+      .ease('ease-in-out')
+      .attr("fill", 'rgba(40,216,178,0.6)')
+      .attr("stroke", 'rgb(102,107,111)')
+      .duration('200')
+      .style("filter", "none")
+      .attr('transform', 'translate(0,0)');
+      d3.select("#backgr"+i)
+      .attr("stroke", 'rgb(73,81,60)')
+      .attr("fill", 'rgb(102,107,111)');
+      d3.select("#text"+i)
+      .attr("display", "none");
+    });
+    // .transition().attr("height",height+20);
+
+  // front
+  svg.selectAll("bar")
+    .data(data)
+    .enter().append("rect")
+    // .style("fill", "red")
+    .attr("y", function(d) { return y(d.value)+60; })
+    .attr("x", function(d) { return x(d.date); })
+    .attr("width", x.rangeBand())
+    .attr("height", function(d) { return (height - y(d.value)); })
+    .attr("fill", 'rgba(40,216,178,0.6)')
+    .attr("stroke", 'rgb(102,107,111)')
+    .attr("class", "front")
+    .attr("id", function(d, i) { return "front"+i})
+    .on('mouseover', function(d, i) {
+      d3.select("#front"+i)
+      .transition()
+      .ease('ease-in-out')
+      .duration('200')
+      // .attr('transform', 'translate(0,-50)')
+      .attr('transform', 'scale(1,1.02)')
+      .style("filter", "url(#drop-shadow)")
+      .attr('fill', 'rgba(40,216,178,1)');
+      d3.select("#backgr"+i)
+      .attr("stroke", "black")
+      .attr('fill', 'rgb(246,246,246)');
+      d3.select("#text"+i)
+      .attr("display", "block")
+      .attr("fill", 'rgb(84,84,84');
+      // .attr('display', 'none');
+    })
+    .on('mouseout', function(d,i) {
+      d3.select("#front"+i)
+      .transition()
+      .ease('ease-in-out')
+      .attr("fill", 'rgba(40,216,178,0.6)')
+      .attr("stroke", 'rgb(102,107,111)')
+      .duration('200')
+      .style("filter", "none")
+      .attr('transform', 'translate(0,0)');
+      d3.select("#backgr"+i)
+      .attr("stroke", 'rgb(73,81,60)')
+      .attr("fill", 'rgb(102,107,111)');
+      d3.select("#text"+i)
+      .attr("display", "none");
+    });
+
+  var texts = svg.selectAll("text").data(data).enter();
+
+  // teks
+  texts.append("text")
+   .text(function(d) { return d.value; })
+   .attr("text-anchor", "middle")
+   .attr("x", function(d) { return x(d.date) + x.rangeBand()/2; })
+   .attr("y", function(d) { return y(d.value) + 50; })
+   .attr("font-family", "sans-serif")
+   .attr("font-size", "21px")
+   .attr("display", "none")
+   .attr("id", function(d, i) { return "text"+i});
+
+  // subteks
+  texts.append("text")
+   .text(function(d) { return d.add; })
+   .attr("text-anchor", "middle")
+   .attr("x", function(d) { return x(d.date) + x.rangeBand()/2; })
+   .attr("y", 5)
+   .attr("font-family", "sans-serif")
+   .attr("font-size", "21px")
+   .attr("id", function(d, i) { return "textsub"+i});  
+
+});
+
+
+</script>
+
+</body>
