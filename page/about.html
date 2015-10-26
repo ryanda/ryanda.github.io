@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <!--Import Google Icon Font-->
+      <link href="css/font.css" rel="stylesheet">
+      <link href="css/icon.css" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body>
+      <nav class="red darken-2">
+        <div class="nav-wrapper container">
+          <a href="#!" class="brand-logo">Logo</a>
+          <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+          <ul class="right hide-on-med-and-down">
+            <li>
+              <a href="sass.html">
+                <i class="material-icons left">home</i>
+                Home
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-button" href="#!" data-activates="dropdown1">
+                <i class="material-icons left">directions_car</i>
+                Product
+                <i class="material-icons right">arrow_drop_down</i>
+              </a>
+            </li>
+            <li class="active">
+              <a href="about.html">
+                <i class="material-icons left">account_circle</i>
+                Profile
+              </a>
+            </li>
+          </ul>
+          <ul class="side-nav" id="mobile-demo">
+            <li><a href="sass.html"><i class="material-icons left">dialpad</i>Home</a></li>
+            <li><a href="#!"><i class="material-icons left">search</i>Product<i class="material-icons right">arrow_drop_down</i></a></li>
+            <li><a href="sass.html"><i class="material-icons left">perm_identity</i>Profile</a></li>
+            <li><a href="sass.html"><i class="material-icons left">chat_bubble_outline</i>Contact Us</a></li>
+          </ul>
+        </div>
+
+        <!-- Dropdown Structure -->
+        <ul id="dropdown1" class="dropdown-content">
+          <li><a href="#!">Berdasarkan Tipe</a></li>
+          <li><a href="#!">Berdasarkan Tahun</a></li>
+          <li class="divider"></li>
+          <li><a href="#!">Selengkapnya</a></li>
+        </ul>
+      </nav>
+
+      <main class="container" style="margin-top: 20px">
+        <div class="row">
+          <div class="col s12 m6">
+          <!-- about us -->
+            <h3>About Us </h3>
+            <h5>
+              SHOWROOM MITSUBISHI
+            </h5>
+            <h5>
+              Bina Dirgahayu
+            </h5>
+            <h5>
+              PT. SUN STAR PRIMA MOTOR
+            </h5>
+            <h5>
+              <i class="material-icons left">location_on</i>
+              Jl. RS. Fatmawati 58 - 60, Jakarta Selatan
+            </h5>
+            <h5>
+              <i class="material-icons prefix">phone</i>
+              021 444 10202 
+            </h5>
+            <h5>
+              <i class="material-icons prefix">phone</i>
+              0821 2160 6610
+            </h5>
+            <h5>
+              <i class="material-icons prefix">chat</i>
+              PIN BB : 323ce8b5
+            </h5>
+            <h5>
+              <i class="material-icons prefix">email</i>
+              Email : binnamitsubishi@yahoo.com
+            </h5>
+          </div>
+          <div class="col s12 m6">
+          <!-- contact us form -->
+            <h3>Contact Us </h3>
+            <form>
+              <div class="row">
+                <div class="input-field col s12">
+                  <i class="material-icons prefix">account_circle</i>
+                  <input id="name" type="text" class="validate">
+                  <label for="name">Nama Anda</label>
+                </div>
+                <div class="input-field col s6">
+                  <i class="material-icons prefix">email</i>
+                  <input id="email" type="text" class="validate">
+                  <label for="email" class="">Email Anda</label>
+                </div>
+                <div class="input-field col s6">
+                  <i class="material-icons prefix">phone</i>
+                  <input id="nohp" type="text" class="validate">
+                  <label for="nohp">No HP Anda</label>
+                </div>
+                <div class="input-field col s12">
+                  <i class="material-icons prefix">chat_bubble</i>
+                  <textarea id="pesan" class="materialize-textarea"></textarea>
+                  <label for="pesan">Pesan Anda</label>
+                </div>
+                <div class="input-field col s8 offset-s2">
+                  <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                    <i class="material-icons right">send</i>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </main>
+
+      <footer class="page-footer red darken-2">
+        <div class="container">
+          <div class="row">
+            <div class="col l6 s12">
+              <h5 class="white-text">Footer Content</h5>
+              <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+            </div>
+            <div class="col l4 offset-l2 s12">
+              <h5 class="white-text">Links</h5>
+              <ul>
+                <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
+                <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
+                <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+                <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="footer-copyright">
+          <div class="container">
+          © 2015 Copyright Text
+          <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+          </div>
+        </div>
+      </footer>
+
+      <!--Import jQuery before materialize.js-->
+      <script type="text/javascript" src="js/jquery.min.js"></script>
+      <script type="text/javascript" src="js/materialize.min.js"></script>
+      <script type="text/javascript">
+        $(document).ready(function(){
+          $('.collapsible').collapsible({
+            accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+          });
+          $(".button-collapse").sideNav();
+          $('.slider').slider({
+            indicators : false
+          });
+          $('.dropdown-button').dropdown({
+              inDuration: 300,
+              outDuration: 225,
+              constrain_width: false, // Does not change width of dropdown to that of the activator
+              hover: true, // Activate on hover
+              gutter: 0, // Spacing from edge
+              belowOrigin: true, // Displays dropdown below the button
+              alignment: 'left' // Displays dropdown with edge aligned to the left of button
+            }
+          );
+        });
+      </script>
+    </body>
+  </html>
