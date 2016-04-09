@@ -1,0 +1,34 @@
+<form>
+    <fieldset><legend>test enkripsi aes</legend>
+        <ul>
+            <li>
+                <label for="password">Password</label>
+                <input type="text" name="password" id="password" value="coba" class="w12">
+            </li>
+            <li>
+                <label for="plaintext">Plaintext</label>
+                <textarea name="plaintext" id="plaintext" class="width-full">tes enkripsi!</textarea>
+            </li>
+            <li>
+                <label><button type="button" name="encrypt" id="encrypt">Encrypt it</button></label>
+                <textarea name="cipher" id="cipher" class="width-full"></textarea>
+                <output class="small grey" id="encrypt-time"></output>
+            </li>
+            <li>
+                <label><button type="button" name="decrypt" id="decrypt">Decrypt it</button></label>
+                <textarea name="plain" id="plain" readonly class="width-full"></textarea>
+                <output class="small grey" id="decrypt-time"></output>
+            </li>
+        </ul>
+    </fieldset>
+</form>
+
+
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript" src="js.js"></script>
+<script type="text/javascript" src="js2.js"></script>
+<script type="text/javascript">
+    var _0xff20=["\x75\x73\x65\x20\x73\x74\x72\x69\x63\x74","\x76\x61\x6C","\x23\x70\x6C\x61\x69\x6E\x74\x65\x78\x74","\x23\x70\x61\x73\x73\x77\x6F\x72\x64","\x65\x6E\x63\x72\x79\x70\x74","\x43\x74\x72","\x6D\x73","\x68\x74\x6D\x6C","\x23\x65\x6E\x63\x72\x79\x70\x74\x2D\x74\x69\x6D\x65","\x23\x63\x69\x70\x68\x65\x72","\x63\x6C\x69\x63\x6B","\x23\x65\x6E\x63\x72\x79\x70\x74","\x64\x65\x63\x72\x79\x70\x74","\x23\x64\x65\x63\x72\x79\x70\x74\x2D\x74\x69\x6D\x65","\x23\x70\x6C\x61\x69\x6E","\x23\x64\x65\x63\x72\x79\x70\x74","\x72\x65\x61\x64\x79"];_0xff20[0];$(document)[_0xff20[16]](function(){$(_0xff20[11])[_0xff20[10]](function(){var _0xaf50x1= new Date();var _0xaf50x2=Aes[_0xff20[5]][_0xff20[4]]($(_0xff20[2])[_0xff20[1]](),$(_0xff20[3])[_0xff20[1]](),256);$(_0xff20[8])[_0xff20[7]]((( new Date()-_0xaf50x1))+_0xff20[6]);$(_0xff20[9])[_0xff20[1]](_0xaf50x2)});$(_0xff20[15])[_0xff20[10]](function(){var _0xaf50x1= new Date();var _0xaf50x3=Aes[_0xff20[5]][_0xff20[12]]($(_0xff20[9])[_0xff20[1]](),$(_0xff20[3])[_0xff20[1]](),256);$(_0xff20[13])[_0xff20[7]]((( new Date()-_0xaf50x1))+_0xff20[6]);$(_0xff20[14])[_0xff20[1]](_0xaf50x3)})})
+</script>
+
+
