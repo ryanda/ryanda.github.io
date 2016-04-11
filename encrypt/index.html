@@ -1,34 +1,168 @@
-<form>
-    <fieldset><legend>test enkripsi aes</legend>
-        <ul>
-            <li>
-                <label for="password">Password</label>
-                <input type="text" name="password" id="password" value="coba" class="w12">
-            </li>
-            <li>
-                <label for="plaintext">Plaintext</label>
-                <textarea name="plaintext" id="plaintext" class="width-full">tes enkripsi!</textarea>
-            </li>
-            <li>
-                <label><button type="button" name="encrypt" id="encrypt">Encrypt it</button></label>
-                <textarea name="cipher" id="cipher" class="width-full"></textarea>
-                <output class="small grey" id="encrypt-time"></output>
-            </li>
-            <li>
-                <label><button type="button" name="decrypt" id="decrypt">Decrypt it</button></label>
-                <textarea name="plain" id="plain" readonly class="width-full"></textarea>
-                <output class="small grey" id="decrypt-time"></output>
-            </li>
-        </ul>
-    </fieldset>
-</form>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Enkripsi Deskripsi</title>
+    <style type="text/css">
+    @font-face {
+      font-family: 'Material Icons';
+      font-style: normal;
+      font-weight: 400;
+      src: url(fonts/material-icons/MaterialIcons-Regular.eot); /* For IE6-8 */
+      src: local('Material Icons'),
+           local('MaterialIcons-Regular'),
+           url(fonts/material-icons/MaterialIcons-Regular.woff2) format('woff2'),
+           url(fonts/material-icons/MaterialIcons-Regular.woff) format('woff'),
+           url(fonts/material-icons/MaterialIcons-Regular.ttf) format('truetype');
+    }
 
+    .material-icons {
+      font-family: 'Material Icons';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 24px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-feature-settings: 'liga';
+      -webkit-font-smoothing: antialiased;
+    }
 
-<script type="text/javascript" src="jquery.min.js"></script>
-<script type="text/javascript" src="js.js"></script>
-<script type="text/javascript" src="js2.js"></script>
-<script type="text/javascript">
-    var _0xff20=["\x75\x73\x65\x20\x73\x74\x72\x69\x63\x74","\x76\x61\x6C","\x23\x70\x6C\x61\x69\x6E\x74\x65\x78\x74","\x23\x70\x61\x73\x73\x77\x6F\x72\x64","\x65\x6E\x63\x72\x79\x70\x74","\x43\x74\x72","\x6D\x73","\x68\x74\x6D\x6C","\x23\x65\x6E\x63\x72\x79\x70\x74\x2D\x74\x69\x6D\x65","\x23\x63\x69\x70\x68\x65\x72","\x63\x6C\x69\x63\x6B","\x23\x65\x6E\x63\x72\x79\x70\x74","\x64\x65\x63\x72\x79\x70\x74","\x23\x64\x65\x63\x72\x79\x70\x74\x2D\x74\x69\x6D\x65","\x23\x70\x6C\x61\x69\x6E","\x23\x64\x65\x63\x72\x79\x70\x74","\x72\x65\x61\x64\x79"];_0xff20[0];$(document)[_0xff20[16]](function(){$(_0xff20[11])[_0xff20[10]](function(){var _0xaf50x1= new Date();var _0xaf50x2=Aes[_0xff20[5]][_0xff20[4]]($(_0xff20[2])[_0xff20[1]](),$(_0xff20[3])[_0xff20[1]](),256);$(_0xff20[8])[_0xff20[7]]((( new Date()-_0xaf50x1))+_0xff20[6]);$(_0xff20[9])[_0xff20[1]](_0xaf50x2)});$(_0xff20[15])[_0xff20[10]](function(){var _0xaf50x1= new Date();var _0xaf50x3=Aes[_0xff20[5]][_0xff20[12]]($(_0xff20[9])[_0xff20[1]](),$(_0xff20[3])[_0xff20[1]](),256);$(_0xff20[13])[_0xff20[7]]((( new Date()-_0xaf50x1))+_0xff20[6]);$(_0xff20[14])[_0xff20[1]](_0xaf50x3)})})
-</script>
+    body {
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+    }
 
+    main {
+      flex: 1 0 auto;
+    }
 
+    </style>
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  </head>
+
+  <body>
+
+<header>
+  <div class="navbar-fixed">
+    <nav class="light-blue">
+      <div class="nav-wrapper container">
+      <a href="#" class="brand-logo">Enkripsi Deskripsi</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- Dropdown Structure -->
+<ul id="dropdown1" class="dropdown-content">
+  <li><a href="#!">one</a></li>
+  <li><a href="#!">two</a></li>
+  <li class="divider"></li>
+  <li><a href="#!">three</a></li>
+</ul>
+
+    <main>
+
+      <div class="container">
+
+  <div class="row">
+    <div class="col s12">
+      <ul class="tabs">
+        <li class="tab col s3"><a class="active" href="#enc">Enkripsi</a></li>
+        <li class="tab col s3"><a href="#dec">Deskripsi</a></li>
+      </ul>
+    </div>
+    <div id="enc" class="col s12">
+      <div class="row">
+        <div class="input-field col s6">
+          <input type="text" class="validate" id="enc1">
+          <label>Plain Text</label>
+        </div>
+        <div class="input-field col s6">
+          <input type="text" class="validate" id="enc2">
+          <label>Password</label>
+        </div>
+        <div class="input-field col s12">
+          <input placeholder="di sini output enkripsi" id="enc3" type="text" class="validate">
+          <label for="disabled">Output</label>
+          <button class="btn waves-effect waves-light" type="submit" name="action" id="encrypt">Encrypt
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div id="dec" class="col s12">
+      <div class="row">
+        <div class="input-field col s6">
+          <input type="text" class="validate" id="dec1">
+          <label>Chiper Text</label>
+        </div>
+        <div class="input-field col s6">
+          <input type="text" class="validate" id="dec2">
+          <label>Password</label>
+        </div>
+        <div class="input-field col s12">
+          <input placeholder="di sini output deskripsi" id="dec3" type="text" class="validate">
+          <label for="disabled">Output</label>
+          <button class="btn waves-effect waves-light" type="submit" name="action" id="decrypt">Decrypt
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+      </div>
+      
+    </main>
+
+        <footer class="page-footer light-blue">
+          <div class="container">
+            <div class="row">
+              <div class="col l6 s12">
+                <h5 class="white-text">Footer Content</h5>
+                <p class="grey-text text-lighten-4">Aplikasi Enkripsi Deskripsi Sederhana</p>
+              </div>
+              <div class="col l4 offset-l2 s12">
+                <h5 class="white-text">Links</h5>
+                <ul>
+                  <li><a class="grey-text text-lighten-3" href="#!"><strong>M. Ryanda Putra</strong> 1113093000022</a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="footer-copyright">
+            <div class="container">
+            © 2016 Copyright Text
+            <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+            </div>
+          </div>
+        </footer>
+
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript" src="js/aes.js"></script>
+    <script type="text/javascript" src="js/aes-ctr.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('ul.tabs').tabs();
+        $('#encrypt').click( function() {
+            var cipher = Aes.Ctr.encrypt($('#enc1').val(), $('#enc2').val(), 256);
+            $('#enc3').val(cipher);
+        });
+        $('#decrypt').click( function() {
+            var plain = Aes.Ctr.decrypt($('#dec1').val(), $('#dec2').val(), 256);
+            $('#dec3').val(plain);
+        });
+      });
+    </script>
+  </body>
+</html>
